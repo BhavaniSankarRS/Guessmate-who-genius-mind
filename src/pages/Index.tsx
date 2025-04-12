@@ -11,7 +11,7 @@ const Index = () => {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const { toast } = useToast();
 
-  // Sample questions for the guessing game
+  // Enhanced question set for the guessing game
   const questions = [
     "Is your character real (not fictional)?",
     "Is your character female?",
@@ -21,6 +21,18 @@ const Index = () => {
     "Is your character over 40 years old?",
     "Is your character primarily known for music?",
     "Is your character American?",
+    "Is your character known for being in politics?",
+    "Has your character won major awards in their field?",
+    "Is your character known for their business success?",
+    "Is your character primarily known for comedy?",
+    "Is your character from a book or novel series?",
+    "Is your character associated with science or technology?",
+    "Has your character appeared in multiple franchises?",
+    "Is your character considered a villain?",
+    "Is your character from the last 50 years?",
+    "Does your character have children?",
+    "Is your character associated with social media?",
+    "Has your character been involved in major controversies?",
   ];
 
   const startGame = () => {
@@ -45,43 +57,142 @@ const Index = () => {
   };
 
   const guessCharacter = () => {
-    // This is a simplified version - in a real app, this would use a more complex algorithm
-    // Based on the answers, we're just showing a predefined guess
-    const positiveAnswers = Object.values(answers).filter(a => a === "yes").length;
+    // Enhanced guessing algorithm
+    const yesAnswers = Object.entries(answers).filter(([_, value]) => value === "yes").map(([key]) => Number(key));
+    const noAnswers = Object.entries(answers).filter(([_, value]) => value === "no").map(([key]) => Number(key));
     
-    let characterGuess = "Taylor Swift";
-    let accuracy = "65%";
-
-    // Very simple logic just for demonstration
-    if (answers[0] === "yes") { // Real person
-      if (answers[1] === "yes") { // Female
-        if (answers[6] === "yes") { // Known for music
-          characterGuess = "Taylor Swift";
-          accuracy = "85%";
-        } else {
-          characterGuess = "Emma Watson";
-          accuracy = "70%";
-        }
-      } else { // Male
-        if (answers[3] === "yes") { // Sports
-          characterGuess = "LeBron James";
-          accuracy = "80%";
-        } else {
-          characterGuess = "Elon Musk";
-          accuracy = "75%";
-        }
+    // Character profiles with their corresponding question patterns
+    const characterProfiles = [
+      {
+        name: "Taylor Swift",
+        matches: [0, 1, 6, 7, 9, 17, 18],
+        antiMatches: [2, 3, 8, 11, 13, 15],
+        score: 0
+      },
+      {
+        name: "Elon Musk",
+        matches: [0, 4, 7, 10, 13, 17, 18, 19],
+        antiMatches: [1, 2, 3, 6, 11, 15],
+        score: 0
+      },
+      {
+        name: "LeBron James",
+        matches: [0, 3, 4, 7, 9, 17, 18],
+        antiMatches: [1, 2, 6, 8, 11, 13, 15],
+        score: 0
+      },
+      {
+        name: "Emma Watson",
+        matches: [0, 1, 2, 4, 9, 18],
+        antiMatches: [3, 6, 8, 10, 11, 13, 15],
+        score: 0
+      },
+      {
+        name: "Barack Obama",
+        matches: [0, 4, 7, 8, 9, 17, 18],
+        antiMatches: [1, 2, 3, 6, 11, 13, 15],
+        score: 0
+      },
+      {
+        name: "Spider-Man",
+        matches: [2, 15],
+        antiMatches: [0, 8, 10, 13],
+        score: 0
+      },
+      {
+        name: "Wonder Woman",
+        matches: [1, 2, 15],
+        antiMatches: [0, 7, 8, 10, 13, 18],
+        score: 0
+      },
+      {
+        name: "Harry Potter",
+        matches: [2, 12, 14],
+        antiMatches: [0, 3, 6, 8, 10, 13, 18],
+        score: 0
+      },
+      {
+        name: "Beyoncé",
+        matches: [0, 1, 4, 6, 7, 9, 17, 18],
+        antiMatches: [2, 3, 8, 13, 15],
+        score: 0
+      },
+      {
+        name: "Bill Gates",
+        matches: [0, 4, 7, 10, 13, 17],
+        antiMatches: [1, 2, 3, 6, 8, 11, 15],
+        score: 0
+      },
+      {
+        name: "Oprah Winfrey",
+        matches: [0, 1, 4, 7, 9, 10, 17, 18],
+        antiMatches: [2, 3, 6, 8, 13, 15],
+        score: 0
+      },
+      {
+        name: "The Joker",
+        matches: [2, 11, 15, 19],
+        antiMatches: [0, 3, 8, 10, 13],
+        score: 0
+      },
+      {
+        name: "Daenerys Targaryen",
+        matches: [1, 2, 12, 15],
+        antiMatches: [0, 3, 6, 7, 8, 10, 13, 18],
+        score: 0
+      },
+      {
+        name: "Michael Jordan",
+        matches: [0, 3, 4, 7, 9, 10],
+        antiMatches: [1, 2, 6, 8, 11, 13, 15],
+        score: 0
+      },
+      {
+        name: "Albert Einstein",
+        matches: [0, 13],
+        antiMatches: [1, 2, 3, 4, 6, 8, 11, 15, 18],
+        score: 0
       }
-    } else { // Fictional
-      if (answers[1] === "yes") { // Female
-        characterGuess = "Wonder Woman";
-        accuracy = "60%";
-      } else {
-        characterGuess = "Spider-Man";
-        accuracy = "65%";
-      }
-    }
+    ];
 
-    return { characterGuess, accuracy };
+    // Calculate scores for each character
+    characterProfiles.forEach(character => {
+      // Add points for matching yes answers
+      yesAnswers.forEach(questionIndex => {
+        if (character.matches.includes(questionIndex)) {
+          character.score += 2;
+        }
+        if (character.antiMatches.includes(questionIndex)) {
+          character.score -= 2;
+        }
+      });
+
+      // Add points for matching no answers
+      noAnswers.forEach(questionIndex => {
+        if (character.antiMatches.includes(questionIndex)) {
+          character.score += 2;
+        }
+        if (character.matches.includes(questionIndex)) {
+          character.score -= 2;
+        }
+      });
+    });
+
+    // Sort by score and get top character
+    characterProfiles.sort((a, b) => b.score - a.score);
+    const topCharacter = characterProfiles[0];
+
+    // Calculate confidence percentage
+    const maxPossibleScore = (topCharacter.matches.length + topCharacter.antiMatches.length) * 2;
+    let confidence = Math.min(100, Math.max(0, (topCharacter.score / maxPossibleScore) * 100));
+    
+    // Add a baseline confidence
+    confidence = Math.round(50 + (confidence / 2));
+    
+    return { 
+      characterGuess: topCharacter.name, 
+      accuracy: `${confidence}%` 
+    };
   };
 
   const renderContent = () => {
