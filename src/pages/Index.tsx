@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, ThumbsUp, ThumbsDown, HelpCircle, Check, X } from "lucide-react";
+import { Brain, ThumbsUp, ThumbsDown, HelpCircle, Check, X, ChevronLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -450,6 +450,34 @@ const Index = () => {
     setUsedQuestions(newUsedQuestions);
   };
 
+  // NEW FUNCTION: Go back to previous question
+  const goToPreviousQuestion = () => {
+    if (questionPath.length <= 1) {
+      return; // Can't go back if we're on the first question
+    }
+    
+    // Remove the current question from the path
+    const newQuestionPath = [...questionPath];
+    newQuestionPath.pop();
+    
+    // Get the previous question index
+    const previousQuestionIndex = newQuestionPath[newQuestionPath.length - 1];
+    
+    // Update the state
+    setQuestionPath(newQuestionPath);
+    setCurrentQuestion(previousQuestionIndex);
+    
+    // Remove the answer for the current question
+    const newAnswers = { ...answers };
+    delete newAnswers[currentQuestion];
+    setAnswers(newAnswers);
+    
+    toast({
+      title: "Going back",
+      description: "You can now change your previous answer.",
+    });
+  };
+
   // Guess character based on answers given
   const guessCharacter = () => {
     // Apply weighted scoring to characters based on answers
@@ -566,9 +594,21 @@ const Index = () => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <p className="text-sm text-muted-foreground">
-                {questionPath.length + 1} / {Math.min(20, allQuestions.length)}
-              </p>
+              <div className="flex justify-between items-center w-full">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={goToPreviousQuestion}
+                  disabled={questionPath.length <= 1}
+                  className="flex items-center gap-1"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>Previous</span>
+                </Button>
+                <p className="text-sm text-muted-foreground">
+                  {questionPath.length + 1} / {Math.min(20, allQuestions.length)}
+                </p>
+              </div>
             </CardFooter>
           </Card>
         );
