@@ -53,7 +53,7 @@ const Index = () => {
     "Does your character use advanced technology or gadgets?",
   ];
 
-  const characterProfiles = [
+  const [characterProfiles, setCharacterProfiles] = useState([
     {
       name: "Taylor Swift",
       matches: [0, 1, 6, 7, 9, 17, 18],
@@ -308,8 +308,158 @@ const Index = () => {
       antiMatches: [0, 1, 3, 6, 8, 21, 32],
       score: 0,
       categoryWeight: 1.2,
+    },
+    {
+      name: "Tom Hanks",
+      matches: [0, 4, 7, 9, 14, 30],
+      antiMatches: [1, 3, 6, 8, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Lady Gaga",
+      matches: [0, 1, 4, 6, 7, 9, 18, 27],
+      antiMatches: [2, 3, 8, 13, 15, 25],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Cristiano Ronaldo",
+      matches: [0, 3, 4, 7, 17, 18, 34],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 20],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Dwayne Johnson",
+      matches: [0, 2, 4, 7, 9, 14, 18, 31],
+      antiMatches: [1, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Sundar Pichai",
+      matches: [0, 4, 7, 10, 13, 20],
+      antiMatches: [1, 2, 3, 6, 8, 11, 15, 25],
+      score: 0,
+      categoryWeight: 1
+    },
+  
+    // More Fictional Characters
+    {
+      name: "Gandalf",
+      matches: [2, 12, 15, 26, 27, 28, 32],
+      antiMatches: [0, 1, 3, 4, 6, 7, 8, 18, 21],
+      score: 0,
+      categoryWeight: 1.2
+    },
+    {
+      name: "Black Panther",
+      matches: [2, 25, 27, 31, 32, 34],
+      antiMatches: [0, 1, 6, 8, 11, 13, 21],
+      score: 0,
+      categoryWeight: 1.2
+    },
+    {
+      name: "Hermione Granger",
+      matches: [1, 2, 12, 14, 26, 32],
+      antiMatches: [0, 3, 6, 8, 10, 15, 21, 25],
+      score: 0,
+      categoryWeight: 1.2
+    },
+    {
+      name: "Tony Soprano",
+      matches: [2, 4, 5, 7, 15, 19],
+      antiMatches: [1, 3, 6, 8, 13, 21, 25, 32],
+      score: 0,
+      categoryWeight: 1.2
+    },
+    {
+      name: "Jon Snow",
+      matches: [2, 12, 14, 27, 31, 32],
+      antiMatches: [0, 6, 8, 10, 13, 21, 25],
+      score: 0,
+      categoryWeight: 1.2
+    },
+  
+    // Historical Figures
+    {
+      name: "Cleopatra",
+      matches: [0, 1, 5],
+      antiMatches: [2, 3, 4, 6, 7, 8, 13, 15, 17, 18, 21],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Mahatma Gandhi",
+      matches: [0, 5, 8, 20, 26],
+      antiMatches: [1, 2, 3, 6, 7, 15, 18, 21, 25, 32],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "Marie Curie",
+      matches: [0, 1, 5, 13],
+      antiMatches: [2, 3, 6, 7, 8, 15, 18, 21, 25, 32],
+      score: 0,
+      categoryWeight: 1
+    },
+  
+    // More Personal Relations
+    {
+      name: "Your Grandmother",
+      matches: [0, 1, 5, 21, 22],
+      antiMatches: [2, 3, 6, 8, 15, 18, 24, 25, 32],
+      score: 0,
+      categoryWeight: 1.5
+    },
+    {
+      name: "Your Grandfather",
+      matches: [0, 5, 21, 22],
+      antiMatches: [1, 2, 3, 6, 8, 15, 18, 24, 25, 32],
+      score: 0,
+      categoryWeight: 1.5
+    },
+    {
+      name: "Your Teacher",
+      matches: [0, 21, 22, 26],
+      antiMatches: [2, 3, 8, 15, 19, 23, 24, 25, 32],
+      score: 0,
+      categoryWeight: 1.5
+    },
+  
+    // Internet Personalities
+    {
+      name: "MrBeast",
+      matches: [0, 4, 7, 18],
+      antiMatches: [1, 2, 3, 6, 8, 13, 15, 20, 25],
+      score: 0,
+      categoryWeight: 1
+    },
+    {
+      name: "PewDiePie",
+      matches: [0, 4, 7, 18],
+      antiMatches: [1, 2, 3, 6, 8, 13, 15, 20, 25],
+      score: 0,
+      categoryWeight: 1
+    },
+  
+    // Anime Characters
+    {
+      name: "Goku",
+      matches: [2, 15, 25, 31, 32, 33],
+      antiMatches: [0, 1, 6, 7, 8, 10, 13, 21],
+      score: 0,
+      categoryWeight: 1.2
+    },
+    {
+      name: "Naruto Uzumaki",
+      matches: [2, 15, 25, 28, 31, 32, 33],
+      antiMatches: [0, 1, 6, 7, 8, 10, 13, 21],
+      score: 0,
+      categoryWeight: 1.2
     }
-  ];
+  ]);
 
   const [questionPath, setQuestionPath] = useState<number[]>([]);
   const [usedQuestions, setUsedQuestions] = useState<Set<number>>(new Set());
