@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, ThumbsUp, ThumbsDown, HelpCircle, Check, X, ChevronLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Brain, ThumbsUp, ThumbsDown, HelpCircle, Check, X, ChevronLeft, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
-  const [gameState, setGameState] = useState<"start" | "playing" | "result">("start");
+  const [gameState, setGameState] = useState<"start" | "playing" | "result" | "feedback">("start");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [correctCharacter, setCorrectCharacter] = useState<string>("");
+  const [feedbackAnswers, setFeedbackAnswers] = useState<number[]>([]);
+  const [feedbackAntiAnswers, setFeedbackAntiAnswers] = useState<number[]>([]);
   const { toast } = useToast();
 
-  // Enhanced question set for the guessing game
   const allQuestions = [
     "Is your character real (not fictional)?",
     "Is your character female?",
@@ -49,7 +53,6 @@ const Index = () => {
     "Does your character use advanced technology or gadgets?",
   ];
 
-  // Character profiles with their corresponding question patterns
   const characterProfiles = [
     {
       name: "Taylor Swift",
@@ -308,11 +311,9 @@ const Index = () => {
     }
   ];
 
-  // Initialize question selection state
   const [questionPath, setQuestionPath] = useState<number[]>([]);
   const [usedQuestions, setUsedQuestions] = useState<Set<number>>(new Set());
 
-  // Grouped questions by categories for dynamic selection
   const questionCategories = {
     initial: [0, 2, 21],
     realPerson: [1, 4, 7, 20],
@@ -322,7 +323,6 @@ const Index = () => {
     personal: [22, 23, 24],
   };
 
-  // Reset game state when starting a new game
   useEffect(() => {
     if (gameState === "playing" && questionPath.length === 0) {
       const initialQuestionIndex = 0;
@@ -332,7 +332,6 @@ const Index = () => {
     }
   }, [gameState, questionPath.length]);
 
-  // Reset game state
   const startGame = () => {
     setGameState("playing");
     setAnswers({});
@@ -346,7 +345,6 @@ const Index = () => {
     });
   };
 
-  // Calculate information gain for each question based on current answers
   const getNextBestQuestion = () => {
     if (Object.keys(answers).length === 0) {
       return 0;
@@ -421,7 +419,6 @@ const Index = () => {
     return questionScores.length > 0 ? questionScores[0].qIndex : 0;
   };
 
-  // Handle answering a question and moving to the next best question
   const answerQuestion = (answer: string) => {
     const newAnswers = { ...answers, [currentQuestion]: answer };
     setAnswers(newAnswers);
@@ -457,7 +454,6 @@ const Index = () => {
     setUsedQuestions(newUsedQuestions);
   };
 
-  // Go back to previous question
   const goToPreviousQuestion = () => {
     if (questionPath.length <= 1) {
       return;
@@ -481,7 +477,6 @@ const Index = () => {
     });
   };
 
-  // Guess character based on answers given
   const guessCharacter = () => {
     const scoredProfiles = characterProfiles.map(character => ({
       ...character,
@@ -531,20 +526,67 @@ const Index = () => {
     };
   };
 
-  // Render the current game state
+  const saveNewCharacter = () => {
+    if (correctCharacter.trim() === "") {
+      toast({
+        title: "Character name required",
+        description: "Please enter the name of the character you were thinking of.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newCharacterProfile = {
+      name: correctCharacter,
+      matches: feedbackAnswers,
+      antiMatches: feedbackAntiAnswers,
+      score: 0,
+      categoryWeight: 1,
+    };
+
+    setCharacterProfiles(prevProfiles => [...prevProfiles, newCharacterProfile]);
+
+    toast({
+      title: "Thank you!",
+      description: `I've learned about "${correctCharacter}" and will do better next time!`,
+    });
+    
+    setCorrectCharacter("");
+    setFeedbackAnswers([]);
+    setFeedbackAntiAnswers([]);
+    setGameState("start");
+  };
+
+  const processAnswersForFeedback = () => {
+    const yesAnswers: number[] = [];
+    const noAnswers: number[] = [];
+    
+    Object.entries(answers).forEach(([questionIndex, answer]) => {
+      const qIndex = Number(questionIndex);
+      if (answer === "yes") {
+        yesAnswers.push(qIndex);
+      } else if (answer === "no") {
+        noAnswers.push(qIndex);
+      }
+    });
+    
+    setFeedbackAnswers(yesAnswers);
+    setFeedbackAntiAnswers(noAnswers);
+  };
+
   const renderContent = () => {
     switch (gameState) {
       case "start":
         return (
-          <Card className="w-full max-w-md mx-auto">
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-bold">Guess Mate</CardTitle>
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Guess Mate</CardTitle>
               <CardDescription className="text-lg mt-2">
                 Think of a character, and I'll try to guess it!
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center space-y-4 py-6">
-              <div className="rounded-full bg-primary/10 p-6">
+              <div className="rounded-full bg-primary/10 p-6 hover-glow">
                 <Brain className="h-12 w-12 text-primary" />
               </div>
               <p className="text-center text-muted-foreground">
@@ -552,7 +594,8 @@ const Index = () => {
               </p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" onClick={startGame}>
+              <Button className="w-full glow-button" onClick={startGame}>
+                <Sparkles className="h-4 w-4 mr-2" />
                 Start the Game
               </Button>
             </CardFooter>
@@ -560,35 +603,35 @@ const Index = () => {
         );
       case "playing":
         return (
-          <Card className="w-full max-w-md mx-auto">
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
             <CardHeader>
-              <CardTitle className="text-center">Question {questionPath.length}</CardTitle>
+              <CardTitle className="text-center bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Question {questionPath.length}</CardTitle>
             </CardHeader>
             <CardContent className="py-4">
-              <p className="text-center text-lg mb-6">{allQuestions[currentQuestion]}</p>
+              <p className="text-center text-lg mb-6 font-medium">{allQuestions[currentQuestion]}</p>
               <div className="grid grid-cols-3 gap-3">
                 <Button 
                   variant="outline"
-                  className="flex flex-col gap-2"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2"
                   onClick={() => answerQuestion("yes")}
                 >
-                  <ThumbsUp className="h-5 w-5" />
+                  <ThumbsUp className="h-5 w-5 text-green-500" />
                   <span>Yes</span>
                 </Button>
                 <Button 
                   variant="outline"
-                  className="flex flex-col gap-2"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2"
                   onClick={() => answerQuestion("no")}
                 >
-                  <ThumbsDown className="h-5 w-5" />
+                  <ThumbsDown className="h-5 w-5 text-red-500" />
                   <span>No</span>
                 </Button>
                 <Button 
                   variant="outline"
-                  className="flex flex-col gap-2"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2"
                   onClick={() => answerQuestion("maybe")}
                 >
-                  <HelpCircle className="h-5 w-5" />
+                  <HelpCircle className="h-5 w-5 text-amber-500" />
                   <span>Maybe</span>
                 </Button>
               </div>
@@ -600,11 +643,17 @@ const Index = () => {
                   size="sm" 
                   onClick={goToPreviousQuestion}
                   disabled={questionPath.length <= 1}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 hover-scale"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>Previous</span>
                 </Button>
+                <div className="h-2 bg-secondary rounded-full w-32">
+                  <div 
+                    className="h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" 
+                    style={{ width: `${(questionPath.length / 20) * 100}%` }}
+                  />
+                </div>
                 <p className="text-sm text-muted-foreground">
                   {questionPath.length} / {Math.min(20, allQuestions.length)}
                 </p>
@@ -615,22 +664,26 @@ const Index = () => {
       case "result":
         const { characterGuess, accuracy } = guessCharacter();
         return (
-          <Card className="w-full max-w-md mx-auto">
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold">I think you're thinking of...</CardTitle>
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                I think you're thinking of...
+              </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center space-y-6 py-6">
-              <div className="rounded-full bg-primary/10 p-6">
+              <div className="rounded-full bg-primary/10 p-6 hover-glow">
                 <Brain className="h-12 w-12 text-primary" />
               </div>
               <div className="text-center">
-                <h3 className="text-3xl font-bold">{characterGuess}</h3>
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  {characterGuess}
+                </h3>
                 <p className="text-lg text-muted-foreground mt-2">Confidence: {accuracy}</p>
               </div>
               <div className="flex gap-4 mt-6">
                 <Button 
                   variant="outline"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 border-green-400 border-2 hover:bg-green-500/10 hover-scale"
                   onClick={() => {
                     toast({
                       title: "Great! I guessed it right! 🎉",
@@ -639,31 +692,73 @@ const Index = () => {
                     setGameState("start");
                   }}
                 >
-                  <Check className="h-4 w-4" />
+                  <Check className="h-4 w-4 text-green-500" />
                   <span>Correct!</span>
                 </Button>
                 <Button 
                   variant="outline"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 border-red-400 border-2 hover:bg-red-500/10 hover-scale"
                   onClick={() => {
-                    toast({
-                      title: "I'll try to do better next time!",
-                      description: "Thanks for playing!",
-                    });
-                    setGameState("start");
+                    processAnswersForFeedback();
+                    setGameState("feedback");
                   }}
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4 text-red-500" />
                   <span>Wrong</span>
                 </Button>
               </div>
             </CardContent>
             <CardFooter>
               <Button 
-                className="w-full" 
+                className="w-full glow-button"
                 onClick={startGame}
               >
+                <Sparkles className="h-4 w-4 mr-2" />
                 Play Again
+              </Button>
+            </CardFooter>
+          </Card>
+        );
+      case "feedback":
+        return (
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                Help Me Learn
+              </CardTitle>
+              <CardDescription>
+                Tell me who you were thinking of so I can make better guesses next time
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="character-name">Who were you thinking of?</Label>
+                <Input 
+                  id="character-name"
+                  placeholder="Enter character name" 
+                  value={correctCharacter}
+                  onChange={(e) => setCorrectCharacter(e.target.value)}
+                  className="border-2"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                I'll remember your answers to improve my guessing ability.
+              </p>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-3">
+              <Button 
+                className="w-full glow-button" 
+                onClick={saveNewCharacter}
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                Save & Continue
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full hover-scale"
+                onClick={() => setGameState("start")}
+              >
+                Skip
               </Button>
             </CardFooter>
           </Card>
@@ -674,7 +769,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-950 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md mb-8">
-        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
           Guess Mate
         </h1>
         <p className="text-center text-muted-foreground mt-2">
