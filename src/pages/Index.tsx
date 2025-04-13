@@ -33,6 +33,21 @@ const Index = () => {
     "Does your character have children?",
     "Is your character associated with social media?",
     "Has your character been involved in major controversies?",
+    "Is your character Indian or of Indian origin?",
+    "Is your character related to you personally?",
+    "Is your character a parent figure?",
+    "Is your character your sibling?",
+    "Is your character your romantic interest?",
+    "Is your character from a superhero universe?",
+    "Is your character known for being wise or intellectual?",
+    "Does your character wear distinctive clothing or costume?",
+    "Is your character known for a specific catchphrase?",
+    "Has your character been portrayed by multiple actors?",
+    "Did your character appear in a movie released after 2010?",
+    "Is your character known for action scenes?",
+    "Does your character have supernatural or magical abilities?",
+    "Is your character associated with a specific location or city?",
+    "Does your character use advanced technology or gadgets?",
   ];
 
   const startGame = () => {
@@ -63,6 +78,7 @@ const Index = () => {
     
     // Character profiles with their corresponding question patterns
     const characterProfiles = [
+      // Original characters
       {
         name: "Taylor Swift",
         matches: [0, 1, 6, 7, 9, 17, 18],
@@ -95,19 +111,19 @@ const Index = () => {
       },
       {
         name: "Spider-Man",
-        matches: [2, 15],
+        matches: [2, 15, 25, 28, 32, 33, 34],
         antiMatches: [0, 8, 10, 13],
         score: 0
       },
       {
         name: "Wonder Woman",
-        matches: [1, 2, 15],
+        matches: [1, 2, 15, 25, 27, 28, 32, 33],
         antiMatches: [0, 7, 8, 10, 13, 18],
         score: 0
       },
       {
         name: "Harry Potter",
-        matches: [2, 12, 14],
+        matches: [2, 12, 14, 32, 33],
         antiMatches: [0, 3, 6, 8, 10, 13, 18],
         score: 0
       },
@@ -131,13 +147,13 @@ const Index = () => {
       },
       {
         name: "The Joker",
-        matches: [2, 11, 15, 19],
+        matches: [2, 11, 15, 19, 28, 29, 31],
         antiMatches: [0, 3, 8, 10, 13],
         score: 0
       },
       {
         name: "Daenerys Targaryen",
-        matches: [1, 2, 12, 15],
+        matches: [1, 2, 12, 15, 32],
         antiMatches: [0, 3, 6, 7, 8, 10, 13, 18],
         score: 0
       },
@@ -149,8 +165,140 @@ const Index = () => {
       },
       {
         name: "Albert Einstein",
-        matches: [0, 13],
+        matches: [0, 13, 26],
         antiMatches: [1, 2, 3, 4, 6, 8, 11, 15, 18],
+        score: 0
+      },
+      
+      // New Indian characters
+      {
+        name: "Shah Rukh Khan",
+        matches: [0, 2, 4, 9, 17, 18, 19, 20, 28, 31],
+        antiMatches: [1, 7, 8, 13, 15, 25, 32],
+        score: 0
+      },
+      {
+        name: "Priyanka Chopra",
+        matches: [0, 1, 2, 4, 9, 18, 20, 34],
+        antiMatches: [3, 8, 11, 13, 15, 25, 32],
+        score: 0
+      },
+      {
+        name: "Virat Kohli",
+        matches: [0, 3, 4, 17, 18, 20, 34],
+        antiMatches: [1, 2, 6, 8, 13, 15, 25, 32],
+        score: 0
+      },
+      {
+        name: "Deepika Padukone",
+        matches: [0, 1, 2, 4, 9, 18, 20],
+        antiMatches: [3, 6, 7, 8, 13, 15, 25, 32],
+        score: 0
+      },
+      {
+        name: "Narendra Modi",
+        matches: [0, 4, 8, 17, 19, 20, 26, 34],
+        antiMatches: [1, 2, 3, 6, 11, 15, 25, 32],
+        score: 0
+      },
+      {
+        name: "A.R. Rahman",
+        matches: [0, 4, 6, 9, 20, 28],
+        antiMatches: [1, 2, 3, 8, 11, 13, 15, 25, 32],
+        score: 0
+      },
+      
+      // Family members and relationships
+      {
+        name: "Your Mom",
+        matches: [0, 1, 21, 22],
+        antiMatches: [2, 3, 8, 15, 19, 24, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Dad",
+        matches: [0, 21, 22],
+        antiMatches: [1, 2, 3, 8, 15, 19, 24, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Sister",
+        matches: [0, 1, 21, 23],
+        antiMatches: [2, 8, 15, 19, 22, 24, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Brother",
+        matches: [0, 21, 23],
+        antiMatches: [1, 2, 8, 15, 19, 22, 24, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Best Friend",
+        matches: [0, 21],
+        antiMatches: [8, 15, 19, 22, 23, 24, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Crush",
+        matches: [0, 21, 24],
+        antiMatches: [15, 19, 22, 23, 25, 32],
+        score: 0
+      },
+      {
+        name: "Your Spouse/Partner",
+        matches: [0, 21, 24],
+        antiMatches: [15, 19, 22, 23, 25, 32],
+        score: 0
+      },
+      
+      // Famous movie characters
+      {
+        name: "Iron Man",
+        matches: [2, 10, 13, 25, 26, 27, 30, 31, 32, 34],
+        antiMatches: [0, 1, 6, 8, 12, 21],
+        score: 0
+      },
+      {
+        name: "Captain Jack Sparrow",
+        matches: [2, 14, 27, 28, 29, 31],
+        antiMatches: [0, 1, 3, 8, 10, 13, 21, 25, 32],
+        score: 0
+      },
+      {
+        name: "Darth Vader",
+        matches: [2, 15, 27, 28, 29, 32, 34],
+        antiMatches: [0, 1, 3, 8, 10, 21],
+        score: 0
+      },
+      {
+        name: "Princess Leia",
+        matches: [1, 2, 14, 27, 29, 33],
+        antiMatches: [0, 3, 6, 10, 11, 15, 21],
+        score: 0
+      },
+      {
+        name: "Batman",
+        matches: [2, 25, 27, 29, 31, 34],
+        antiMatches: [0, 1, 3, 6, 8, 21, 32],
+        score: 0
+      },
+      {
+        name: "Katniss Everdeen",
+        matches: [1, 2, 12, 27, 31],
+        antiMatches: [0, 6, 8, 10, 13, 15, 21, 32],
+        score: 0
+      },
+      {
+        name: "Sherlock Holmes",
+        matches: [2, 12, 26, 27, 28, 29],
+        antiMatches: [0, 1, 3, 6, 8, 21, 25, 32],
+        score: 0
+      },
+      {
+        name: "James Bond",
+        matches: [2, 14, 27, 29, 31, 34],
+        antiMatches: [0, 1, 3, 6, 8, 21, 32],
         score: 0
       }
     ];
