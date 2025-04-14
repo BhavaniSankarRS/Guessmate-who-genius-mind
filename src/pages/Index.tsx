@@ -458,6 +458,139 @@ const Index = () => {
       antiMatches: [0, 1, 6, 7, 8, 10, 13, 21],
       score: 0,
       categoryWeight: 1.2
+    },
+    {
+      name: "MS Dhoni",
+      matches: [0, 3, 4, 9, 17, 20, 35, 37, 38],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Rajinikanth",
+      matches: [0, 4, 9, 20, 36, 37],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Vijay",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Ajith Kumar",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Suriya",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "AR Rahman",
+      matches: [0, 4, 6, 9, 20, 36],
+      antiMatches: [1, 3, 8, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Nayanthara",
+      matches: [0, 1, 4, 9, 20, 36],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Dhanush",
+      matches: [0, 4, 6, 9, 20, 36],
+      antiMatches: [1, 3, 8, 13, 15, 25, 32, 35],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Sachin Tendulkar",
+      matches: [0, 3, 4, 9, 17, 20, 35, 38],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Rahul Dravid",
+      matches: [0, 3, 4, 9, 20, 35, 38],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Rohit Sharma",
+      matches: [0, 3, 4, 17, 20, 35],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32, 39],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Aishwarya Rai",
+      matches: [0, 1, 4, 9, 17, 20],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 36],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Amitabh Bachchan",
+      matches: [0, 4, 5, 9, 20],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 36],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Aamir Khan",
+      matches: [0, 4, 9, 20],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 36],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Kamal Haasan",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Vijay Sethupathi",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Vikram",
+      matches: [0, 4, 9, 20, 36],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Samantha Ruth Prabhu",
+      matches: [0, 1, 4, 9, 20, 36],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Trisha Krishnan",
+      matches: [0, 1, 4, 9, 20, 36],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32],
+      score: 0,
+      categoryWeight: 1.3,
     }
   ]);
 
@@ -570,7 +703,7 @@ const Index = () => {
       let priorityBonus = 0;
       
       if (isIndianCharacter && questionCategories.indian.includes(qIndex)) {
-        priorityBonus -= 2;
+        priorityBonus -= 2.5;
       }
       
       if (answers["21"] === "yes" && questionCategories.personal.includes(qIndex)) {
@@ -590,7 +723,11 @@ const Index = () => {
       }
       
       if (answers["3"] === "yes" && qIndex === 35) {
-        priorityBonus -= 2;
+        priorityBonus -= 2.5;
+      }
+
+      if (answers["20"] === "yes" && qIndex === 36) {
+        priorityBonus -= 2.5;
       }
 
       return { qIndex, score: splitScore + priorityBonus };
@@ -650,22 +787,20 @@ const Index = () => {
       return;
     }
     
-    const newQuestionPath = [...questionPath];
-    newQuestionPath.pop();
-    
+    const newQuestionPath = questionPath.slice(0, -1);
     const previousQuestionIndex = newQuestionPath[newQuestionPath.length - 1];
     
     setQuestionPath(newQuestionPath);
     setCurrentQuestion(previousQuestionIndex);
     
     const newAnswers = { ...answers };
-    const lastQuestionIndex = questionPath[questionPath.length - 1];
-    delete newAnswers[lastQuestionIndex];
+    const lastAnsweredQuestion = questionPath[questionPath.length - 1];
+    delete newAnswers[lastAnsweredQuestion];
     setAnswers(newAnswers);
     
-    const newUsedQuestions = new Set(usedQuestions);
-    newUsedQuestions.delete(lastQuestionIndex);
-    setUsedQuestions(newUsedQuestions);
+    const newAskedQuestions = new Set(askedQuestions);
+    newAskedQuestions.delete(lastAnsweredQuestion);
+    setAskedQuestions(newAskedQuestions);
     
     toast({
       title: "Going back",
@@ -684,32 +819,43 @@ const Index = () => {
       let score = 0;
       let maxPossiblePoints = 0;
       let matchingPoints = 0;
+      let antiMatchPoints = 0;
       
       Object.entries(answers).forEach(([questionIndex, answer]) => {
         const qIndex = Number(questionIndex);
         maxPossiblePoints += 2;
         
         if (answer === "yes" && character.matches.includes(qIndex)) {
-          score += 3;
-          matchingPoints += 3;
+          score += 3.5;
+          matchingPoints += 3.5;
         } else if (answer === "no" && character.antiMatches.includes(qIndex)) {
-          score += 2;
-          matchingPoints += 2;
+          score += 2.5;
+          antiMatchPoints += 2.5;
         } else if (answer === "yes" && character.antiMatches.includes(qIndex)) {
-          score -= 4;
+          score -= 5;
         } else if (answer === "no" && character.matches.includes(qIndex)) {
-          score -= 4;
+          score -= 5;
         } else if (answer === "maybe" && character.matches.includes(qIndex)) {
           score += 1;
           matchingPoints += 1;
         } else if (answer === "maybe" && character.antiMatches.includes(qIndex)) {
           score += 1;
-          matchingPoints += 1;
+          antiMatchPoints += 1;
         }
       });
       
+      const matchCoverage = character.matches.length > 0 ? 
+        character.matches.filter(q => answers[q] === "yes").length / character.matches.length : 0;
+      
+      const antiMatchCoverage = character.antiMatches.length > 0 ? 
+        character.antiMatches.filter(q => answers[q] === "no").length / character.antiMatches.length : 0;
+      
       const questionCoverage = Object.keys(answers).length / 15;
-      const finalScore = score * character.categoryWeight * (1 + questionCoverage * 0.3);
+      
+      const finalScore = score * character.categoryWeight * 
+        (1 + questionCoverage * 0.3) * 
+        (1 + matchCoverage * 0.5) * 
+        (1 + antiMatchCoverage * 0.4);
       
       character.score = finalScore;
     });
@@ -724,14 +870,14 @@ const Index = () => {
       const scoreDifference = Math.max(0, topCharacter.score - runnerUpScore);
       const questionCount = Object.keys(answers).length;
       
-      confidence = Math.min(99, 50 + 
-                  (scoreDifference * 3) + 
-                  (questionCount * 2) + 
-                  (topCharacter.score > 10 ? 10 : 0));
+      confidence = Math.min(99, 55 + 
+                  (scoreDifference * 3.5) + 
+                  (questionCount * 2.5) + 
+                  (topCharacter.score > 10 ? 15 : 0));
     }
     
     if (Object.keys(answers).length > 10) {
-      confidence = Math.max(confidence, 60);
+      confidence = Math.max(confidence, 65);
     }
     
     confidence = Math.min(99, Math.round(confidence));
@@ -762,7 +908,7 @@ const Index = () => {
       matches: feedbackAnswers,
       antiMatches: feedbackAntiAnswers,
       score: 0,
-      categoryWeight: 1.2,
+      categoryWeight: 1.3,
     };
 
     let updatedProfiles = [...characterProfiles];
@@ -798,6 +944,7 @@ const Index = () => {
       });
     }
     
+    localStorage.setItem("characterProfiles", JSON.stringify(updatedProfiles));
     setCharacterProfiles(updatedProfiles);
     setCorrectCharacter("");
     setFeedbackAnswers([]);
@@ -830,7 +977,7 @@ const Index = () => {
             <CardHeader className="text-center">
               <CardTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Guess Mate</CardTitle>
               <CardDescription className="text-lg mt-2">
-                Think of a character, and I'll try to guess it!
+                Think of a person and answer the questions.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center space-y-4 py-6">
@@ -1014,6 +1161,13 @@ const Index = () => {
         );
     }
   };
+
+  useEffect(() => {
+    const savedProfiles = localStorage.getItem("characterProfiles");
+    if (savedProfiles) {
+      setCharacterProfiles(JSON.parse(savedProfiles));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-950 flex flex-col items-center justify-center p-4">
