@@ -51,6 +51,11 @@ const Index = () => {
     "Does your character have supernatural or magical abilities?",
     "Is your character associated with a specific location or city?",
     "Does your character use advanced technology or gadgets?",
+    "Is your character a cricketer?",
+    "Is your character associated with Tamil cinema?",
+    "Is your character a politician in India?",
+    "Is your character considered a cricket legend?",
+    "Does your character play for Royal Challengers Bangalore?",
   ];
 
   const [characterProfiles, setCharacterProfiles] = useState([
@@ -345,7 +350,6 @@ const Index = () => {
       categoryWeight: 1
     },
   
-    // More Fictional Characters
     {
       name: "Gandalf",
       matches: [2, 12, 15, 26, 27, 28, 32],
@@ -382,7 +386,6 @@ const Index = () => {
       categoryWeight: 1.2
     },
   
-    // Historical Figures
     {
       name: "Cleopatra",
       matches: [0, 1, 5],
@@ -405,7 +408,6 @@ const Index = () => {
       categoryWeight: 1
     },
   
-    // More Personal Relations
     {
       name: "Your Grandmother",
       matches: [0, 1, 5, 21, 22],
@@ -428,7 +430,6 @@ const Index = () => {
       categoryWeight: 1.5
     },
   
-    // Internet Personalities
     {
       name: "MrBeast",
       matches: [0, 4, 7, 18],
@@ -444,7 +445,6 @@ const Index = () => {
       categoryWeight: 1
     },
   
-    // Anime Characters
     {
       name: "Goku",
       matches: [2, 15, 25, 31, 32, 33],
@@ -463,6 +463,7 @@ const Index = () => {
 
   const [questionPath, setQuestionPath] = useState<number[]>([]);
   const [usedQuestions, setUsedQuestions] = useState<Set<number>>(new Set());
+  const [askedQuestions, setAskedQuestions] = useState<Set<number>>(new Set());
 
   const questionCategories = {
     initial: [0, 2, 21],
@@ -471,6 +472,7 @@ const Index = () => {
     celebrity: [3, 6, 8, 9, 10],
     movie: [28, 29, 30, 31],
     personal: [22, 23, 24],
+    indian: [20, 35, 36, 37, 38, 39],
   };
 
   useEffect(() => {
@@ -479,6 +481,7 @@ const Index = () => {
       setCurrentQuestion(initialQuestionIndex);
       setQuestionPath([initialQuestionIndex]);
       setUsedQuestions(new Set([initialQuestionIndex]));
+      setAskedQuestions(new Set([initialQuestionIndex]));
     }
   }, [gameState, questionPath.length]);
 
@@ -486,12 +489,14 @@ const Index = () => {
     setGameState("playing");
     setAnswers({});
     setUsedQuestions(new Set());
+    setAskedQuestions(new Set());
     setQuestionPath([]);
     setCurrentQuestion(0);
     
     toast({
       title: "Game started!",
       description: "Think of a person and answer the questions.",
+      className: "glass-card",
     });
   };
 
@@ -509,22 +514,26 @@ const Index = () => {
         } else if (answer === "no" && character.antiMatches.includes(qIndex)) {
           score += 2;
         } else if (answer === "yes" && character.antiMatches.includes(qIndex)) {
-          score -= 2;
+          score -= 3;
         } else if (answer === "no" && character.matches.includes(qIndex)) {
-          score -= 2;
+          score -= 3;
+        } else if (answer === "maybe" && character.matches.includes(qIndex)) {
+          score += 0.5;
+        } else if (answer === "maybe" && character.antiMatches.includes(qIndex)) {
+          score += 0.5;
         }
       });
-      return { ...character, score };
+      return { ...character, score: score * character.categoryWeight };
     });
 
-    updatedProfiles.sort((a, b) => (b.score * b.categoryWeight) - (a.score * a.categoryWeight));
+    updatedProfiles.sort((a, b) => b.score - a.score);
     
     const topCandidates = updatedProfiles.filter(
-      char => char.score > (updatedProfiles[0].score / 2) && char.score > 0
+      char => char.score > Math.max(updatedProfiles[0].score * 0.6, 2) && char.score > 0
     );
-
+    
     if (topCandidates.length === 0) {
-      const unusedInitial = questionCategories.initial.filter(q => !usedQuestions.has(q));
+      const unusedInitial = questionCategories.initial.filter(q => !askedQuestions.has(q));
       if (unusedInitial.length > 0) {
         return unusedInitial[0];
       }
@@ -532,41 +541,64 @@ const Index = () => {
 
     const remainingQuestions = allQuestions
       .map((_, index) => index)
-      .filter(index => !usedQuestions.has(index));
+      .filter(index => !askedQuestions.has(index));
 
     if (remainingQuestions.length === 0) {
-      return 0;
+      return -1;
     }
 
+    let isIndianCharacter = false;
+    if (answers["20"] === "yes") {
+      isIndianCharacter = true;
+    }
+    
     const questionScores = remainingQuestions.map(qIndex => {
       let yesCount = 0;
       let noCount = 0;
+      let maybeCount = 0;
       
       topCandidates.forEach(character => {
         if (character.matches.includes(qIndex)) yesCount++;
         else if (character.antiMatches.includes(qIndex)) noCount++;
+        else maybeCount++;
       });
       
-      const splitScore = Math.abs(yesCount - noCount);
+      const totalResponses = topCandidates.length;
+      const splitScore = Math.abs((yesCount / totalResponses) - 0.5) + 
+                         Math.abs((noCount / totalResponses) - 0.5);
+      
+      let priorityBonus = 0;
+      
+      if (isIndianCharacter && questionCategories.indian.includes(qIndex)) {
+        priorityBonus -= 2;
+      }
       
       if (answers["21"] === "yes" && questionCategories.personal.includes(qIndex)) {
-        return { qIndex, score: -1000 };
+        priorityBonus -= 3;
       }
       
       if (answers["0"] === "no" && questionCategories.fictional.includes(qIndex)) {
-        return { qIndex, score: -700 };
+        priorityBonus -= 2;
       }
       
-      if (answers["0"] === "yes" && !usedQuestions.has(1) && qIndex === 1) {
-        return { qIndex, score: -600 };
+      if (answers["0"] === "yes" && !askedQuestions.has(1) && qIndex === 1) {
+        priorityBonus -= 1;
+      }
+      
+      if (answers["2"] === "yes" && questionCategories.movie.includes(qIndex)) {
+        priorityBonus -= 1.5;
+      }
+      
+      if (answers["3"] === "yes" && qIndex === 35) {
+        priorityBonus -= 2;
       }
 
-      return { qIndex, score: splitScore };
+      return { qIndex, score: splitScore + priorityBonus };
     });
     
     questionScores.sort((a, b) => a.score - b.score);
     
-    return questionScores.length > 0 ? questionScores[0].qIndex : 0;
+    return questionScores.length > 0 ? questionScores[0].qIndex : -1;
   };
 
   const answerQuestion = (answer: string) => {
@@ -576,7 +608,11 @@ const Index = () => {
     const newQuestionPath = [...questionPath, currentQuestion];
     setQuestionPath(newQuestionPath);
     
-    if (newQuestionPath.length >= 10) {
+    const newAskedQuestions = new Set(askedQuestions);
+    newAskedQuestions.add(currentQuestion);
+    setAskedQuestions(newAskedQuestions);
+    
+    if (newQuestionPath.length >= 15) {
       setGameState("result");
       return;
     }
@@ -584,12 +620,17 @@ const Index = () => {
     const newUsedQuestions = new Set(usedQuestions);
     let nextQuestion = getNextBestQuestion();
     
+    if (nextQuestion === -1) {
+      setGameState("result");
+      return;
+    }
+    
     if (!newUsedQuestions.has(nextQuestion)) {
       newUsedQuestions.add(nextQuestion);
     } else {
       const unusedQuestions = allQuestions
         .map((_, index) => index)
-        .filter(index => !newUsedQuestions.has(index));
+        .filter(index => !newUsedQuestions.has(index) && !newAskedQuestions.has(index));
       
       if (unusedQuestions.length === 0) {
         setGameState("result");
@@ -618,12 +659,18 @@ const Index = () => {
     setCurrentQuestion(previousQuestionIndex);
     
     const newAnswers = { ...answers };
-    delete newAnswers[currentQuestion];
+    const lastQuestionIndex = questionPath[questionPath.length - 1];
+    delete newAnswers[lastQuestionIndex];
     setAnswers(newAnswers);
+    
+    const newUsedQuestions = new Set(usedQuestions);
+    newUsedQuestions.delete(lastQuestionIndex);
+    setUsedQuestions(newUsedQuestions);
     
     toast({
       title: "Going back",
       description: "You can now change your previous answer.",
+      className: "glass-card",
     });
   };
 
@@ -635,40 +682,59 @@ const Index = () => {
     
     scoredProfiles.forEach(character => {
       let score = 0;
+      let maxPossiblePoints = 0;
+      let matchingPoints = 0;
       
       Object.entries(answers).forEach(([questionIndex, answer]) => {
         const qIndex = Number(questionIndex);
+        maxPossiblePoints += 2;
         
         if (answer === "yes" && character.matches.includes(qIndex)) {
-          score += 2;
+          score += 3;
+          matchingPoints += 3;
         } else if (answer === "no" && character.antiMatches.includes(qIndex)) {
           score += 2;
+          matchingPoints += 2;
         } else if (answer === "yes" && character.antiMatches.includes(qIndex)) {
-          score -= 2;
+          score -= 4;
         } else if (answer === "no" && character.matches.includes(qIndex)) {
-          score -= 2;
-        }
-        else if (answer === "maybe" && character.matches.includes(qIndex)) {
-          score += 0.5;
+          score -= 4;
+        } else if (answer === "maybe" && character.matches.includes(qIndex)) {
+          score += 1;
+          matchingPoints += 1;
         } else if (answer === "maybe" && character.antiMatches.includes(qIndex)) {
-          score += 0.5;
+          score += 1;
+          matchingPoints += 1;
         }
       });
       
-      character.score = score * character.categoryWeight;
+      const questionCoverage = Object.keys(answers).length / 15;
+      const finalScore = score * character.categoryWeight * (1 + questionCoverage * 0.3);
+      
+      character.score = finalScore;
     });
 
     const sortedProfiles = [...scoredProfiles].sort((a, b) => b.score - a.score);
     const topCharacter = sortedProfiles[0];
 
-    const maxPossibleScore = Math.max(1, topCharacter.matches.length + topCharacter.antiMatches.length);
-    let confidence = Math.min(100, Math.max(0, (topCharacter.score / (maxPossibleScore * 2)) * 100));
+    let confidence = 50;
     
-    confidence = Math.round(50 + (confidence / 2));
-    
-    if (Object.keys(answers).length > 15) {
-      confidence = Math.min(99, confidence + 5);
+    if (topCharacter.score > 0) {
+      const runnerUpScore = sortedProfiles[1]?.score || 0;
+      const scoreDifference = Math.max(0, topCharacter.score - runnerUpScore);
+      const questionCount = Object.keys(answers).length;
+      
+      confidence = Math.min(99, 50 + 
+                  (scoreDifference * 3) + 
+                  (questionCount * 2) + 
+                  (topCharacter.score > 10 ? 10 : 0));
     }
+    
+    if (Object.keys(answers).length > 10) {
+      confidence = Math.max(confidence, 60);
+    }
+    
+    confidence = Math.min(99, Math.round(confidence));
     
     return { 
       characterGuess: topCharacter.name, 
@@ -682,25 +748,57 @@ const Index = () => {
         title: "Character name required",
         description: "Please enter the name of the character you were thinking of.",
         variant: "destructive",
+        className: "glass-card",
       });
       return;
     }
 
+    const existingCharacterIndex = characterProfiles.findIndex(
+      char => char.name.toLowerCase() === correctCharacter.toLowerCase()
+    );
+    
     const newCharacterProfile = {
       name: correctCharacter,
       matches: feedbackAnswers,
       antiMatches: feedbackAntiAnswers,
       score: 0,
-      categoryWeight: 1,
+      categoryWeight: 1.2,
     };
 
-    setCharacterProfiles(prevProfiles => [...prevProfiles, newCharacterProfile]);
-
-    toast({
-      title: "Thank you!",
-      description: `I've learned about "${correctCharacter}" and will do better next time!`,
-    });
+    let updatedProfiles = [...characterProfiles];
     
+    if (existingCharacterIndex !== -1) {
+      const existingChar = characterProfiles[existingCharacterIndex];
+      
+      const mergedMatches = [...new Set([...existingChar.matches, ...feedbackAnswers])];
+      const mergedAntiMatches = [...new Set([...existingChar.antiMatches, ...feedbackAntiAnswers])];
+      
+      const finalMatches = mergedMatches.filter(q => !mergedAntiMatches.includes(q));
+      const finalAntiMatches = mergedAntiMatches.filter(q => !mergedMatches.includes(q));
+      
+      updatedProfiles[existingCharacterIndex] = {
+        ...existingChar,
+        matches: finalMatches,
+        antiMatches: finalAntiMatches,
+        categoryWeight: 1.3,
+      };
+      
+      toast({
+        title: "Character updated!",
+        description: `I've updated my knowledge about "${correctCharacter}" and will do better next time!`,
+        className: "glass-card",
+      });
+    } else {
+      updatedProfiles.push(newCharacterProfile);
+      
+      toast({
+        title: "Thank you!",
+        description: `I've learned about "${correctCharacter}" and will do better next time!`,
+        className: "glass-card",
+      });
+    }
+    
+    setCharacterProfiles(updatedProfiles);
     setCorrectCharacter("");
     setFeedbackAnswers([]);
     setFeedbackAntiAnswers([]);
@@ -801,11 +899,11 @@ const Index = () => {
                 <div className="h-2 bg-secondary rounded-full w-32">
                   <div 
                     className="h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" 
-                    style={{ width: `${(questionPath.length / 20) * 100}%` }}
+                    style={{ width: `${(questionPath.length / 15) * 100}%` }}
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {questionPath.length} / {Math.min(20, allQuestions.length)}
+                  {questionPath.length} / 15
                 </p>
               </div>
             </CardFooter>
@@ -838,6 +936,7 @@ const Index = () => {
                     toast({
                       title: "Great! I guessed it right! 🎉",
                       description: "I'm getting better every day!",
+                      className: "glass-card",
                     });
                     setGameState("start");
                   }}
