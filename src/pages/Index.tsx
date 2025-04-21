@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
-  const [gameState, setGameState] = useState<"start" | "playing" | "result" | "feedback" | "contact">("start");
+  const [gameState, setGameState<"start" | "playing" | "result" | "feedback" | "contact">("start");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [correctCharacter, setCorrectCharacter] = useState<string>("");
@@ -225,10 +225,10 @@ const Index = () => {
     },
     {
       name: "A.R. Rahman",
-      matches: [0, 4, 6, 9, 20, 28, 41, 52, 54, 55],
-      antiMatches: [1, 2, 3, 8, 11, 13, 15, 25, 32, 36, 37, 38, 39, 40],
+      matches: [0, 4, 6, 9, 20, 41, 52, 54, 55, 56],
+      antiMatches: [1, 3, 8, 13, 15, 25, 32, 36, 37, 38, 39, 40],
       score: 0,
-      categoryWeight: 1,
+      categoryWeight: 1.3,
     },
     
     {
@@ -517,6 +517,7 @@ const Index = () => {
       score: 0,
       categoryWeight: 1.3,
     },
-    {
-      name: "AR Rahman",
-      matches: [0, 4, 6,
+  ]);
+
+  const handleAnswer = (questionIndex: number, answer: string) => {
+    setAnswers({ ...answers, [questionIndex]:
