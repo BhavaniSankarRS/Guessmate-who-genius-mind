@@ -226,10 +226,10 @@ const Index = () => {
     },
     {
       name: "A.R. Rahman",
-      matches: [0, 4, 6, 9, 20, 41, 52, 54, 55, 56],
-      antiMatches: [1, 3, 8, 13, 15, 25, 32, 36, 37, 38, 39, 40],
+      matches: [0, 4, 6, 9, 20, 28, 41, 52, 54, 55],
+      antiMatches: [1, 2, 3, 8, 11, 13, 15, 25, 32, 36, 37, 38, 39, 40],
       score: 0,
-      categoryWeight: 1.3,
+      categoryWeight: 1,
     },
     
     {
@@ -518,329 +518,879 @@ const Index = () => {
       score: 0,
       categoryWeight: 1.3,
     },
+    {
+      name: "AR Rahman",
+      matches: [0, 4, 6, 9, 20, 36, 41, 52, 54, 55, 57],
+      antiMatches: [1, 3, 8, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Nayanthara",
+      matches: [0, 1, 4, 9, 20, 36, 41, 49, 50, 51, 53, 56, 57],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Dhanush",
+      matches: [0, 4, 6, 9, 20, 36, 41, 49, 50, 51, 53, 55, 56],
+      antiMatches: [1, 3, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Sachin Tendulkar",
+      matches: [0, 3, 4, 9, 17, 20, 35, 38, 41, 44, 46, 52, 57, 58],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32, 36, 37, 39, 43, 45, 47],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Rahul Dravid",
+      matches: [0, 3, 4, 9, 20, 35, 38, 41, 42, 44, 46, 52],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32, 36, 37, 39, 43, 45, 47],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Rohit Sharma",
+      matches: [0, 3, 4, 17, 20, 35, 41, 44, 46],
+      antiMatches: [1, 2, 6, 8, 11, 13, 15, 25, 32, 36, 37, 39, 43, 45, 47],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Aishwarya Rai",
+      matches: [0, 1, 4, 9, 17, 20, 41, 49, 50, 51, 52, 53, 56, 57],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 36, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Amitabh Bachchan",
+      matches: [0, 4, 5, 9, 20, 41, 49, 52, 53, 57, 58],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 36, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Aamir Khan",
+      matches: [0, 4, 9, 20, 41, 48, 49, 52, 53, 57],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 36, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Kamal Haasan",
+      matches: [0, 4, 9, 20, 36, 41, 48, 49, 52, 53, 56, 57, 58],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Vijay Sethupathi",
+      matches: [0, 4, 9, 20, 36, 49, 53, 56],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Vikram",
+      matches: [0, 4, 9, 20, 36, 41, 49, 53, 56],
+      antiMatches: [1, 3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Samantha Ruth Prabhu",
+      matches: [0, 1, 4, 9, 20, 36, 41, 49, 50, 51, 53, 56],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    },
+    {
+      name: "Trisha Krishnan",
+      matches: [0, 1, 4, 9, 20, 36, 50, 53, 56],
+      antiMatches: [3, 6, 8, 13, 15, 25, 32, 35, 37, 38, 39, 40],
+      score: 0,
+      categoryWeight: 1.3,
+    }
   ]);
 
-  const handleAnswer = (questionIndex: number, answer: string) => {
-    setAnswers({ ...answers, [questionIndex]: answer });
+  const [questionPath, setQuestionPath] = useState<number[]>([]);
+  const [usedQuestions, setUsedQuestions] = useState<Set<number>>(new Set());
+  const [askedQuestions, setAskedQuestions] = useState<Set<number>>(new Set());
+
+  const questionCategories = {
+    initial: [0, 2, 21],
+    realPerson: [1, 4, 7, 20],
+    fictional: [25, 26, 32],
+    celebrity: [3, 6, 8, 9, 10],
+    movie: [28, 29, 30, 31],
+    personal: [22, 23, 24],
+    indian: [20, 35, 36, 37, 38, 39, 40, 52, 53],
+    cricket: [36, 43, 44, 45, 46, 47],
+    tamil: [36, 49, 50, 53, 56],
   };
 
-  // Calculate scores based on answers
-  const calculateScores = () => {
-    // Clone the character profiles to update scores
-    const updatedProfiles = [...characterProfiles];
+  useEffect(() => {
+    if (gameState === "playing" && questionPath.length === 0) {
+      const initialQuestionIndex = 0;
+      setCurrentQuestion(initialQuestionIndex);
+      setQuestionPath([initialQuestionIndex]);
+      setUsedQuestions(new Set([initialQuestionIndex]));
+      setAskedQuestions(new Set([initialQuestionIndex]));
+    }
+  }, [gameState, questionPath.length]);
+
+  const startGame = () => {
+    setGameState("playing");
+    setAnswers({});
+    setUsedQuestions(new Set());
+    setAskedQuestions(new Set());
+    setQuestionPath([]);
+    setCurrentQuestion(0);
     
-    // Calculate scores for each character based on answers
-    updatedProfiles.forEach((profile) => {
+    toast({
+      title: "Game started!",
+      description: "Think of a person and answer the questions.",
+      className: "glass-card",
+    });
+  };
+
+  const getNextBestQuestion = () => {
+    if (Object.keys(answers).length === 0) {
+      return 0;
+    }
+
+    const updatedProfiles = characterProfiles.map(character => {
       let score = 0;
       Object.entries(answers).forEach(([questionIndex, answer]) => {
-        const qIndex = parseInt(questionIndex);
+        const qIndex = Number(questionIndex);
+        if (answer === "yes" && character.matches.includes(qIndex)) {
+          score += 2;
+        } else if (answer === "no" && character.antiMatches.includes(qIndex)) {
+          score += 2;
+        } else if (answer === "yes" && character.antiMatches.includes(qIndex)) {
+          score -= 3;
+        } else if (answer === "no" && character.matches.includes(qIndex)) {
+          score -= 3;
+        } else if (answer === "maybe" && character.matches.includes(qIndex)) {
+          score += 0.5;
+        } else if (answer === "maybe" && character.antiMatches.includes(qIndex)) {
+          score += 0.5;
+        }
+      });
+      return { ...character, score: score * character.categoryWeight };
+    });
+
+    updatedProfiles.sort((a, b) => b.score - a.score);
+    
+    const topCandidates = updatedProfiles.filter(
+      char => char.score > Math.max(updatedProfiles[0].score * 0.6, 2) && char.score > 0
+    );
+    
+    if (topCandidates.length === 0) {
+      const unusedInitial = questionCategories.initial.filter(q => !askedQuestions.has(q));
+      if (unusedInitial.length > 0) {
+        return unusedInitial[0];
+      }
+    }
+
+    const remainingQuestions = allQuestions
+      .map((_, index) => index)
+      .filter(index => !askedQuestions.has(index));
+
+    if (remainingQuestions.length === 0) {
+      return -1;
+    }
+
+    // More specialized question selection based on previous answers
+    let isIndianCharacter = false;
+    let isCricketer = false;
+    let isTamilCinema = false;
+    
+    if (answers["20"] === "yes") {
+      isIndianCharacter = true;
+    }
+    
+    if (answers["36"] === "yes") {
+      isCricketer = true;
+    }
+    
+    if (answers["37"] === "yes") {
+      isTamilCinema = true;
+    }
+    
+    // Track previously asked question types to avoid asking similar questions in a row
+    const recentQuestionTypes = questionPath.slice(-3).map(qIndex => {
+      if (questionCategories.cricket.includes(qIndex)) return 'cricket';
+      if (questionCategories.tamil.includes(qIndex)) return 'tamil';
+      if (questionCategories.indian.includes(qIndex)) return 'indian';
+      if (questionCategories.personal.includes(qIndex)) return 'personal';
+      if (questionCategories.fictional.includes(qIndex)) return 'fictional';
+      if (questionCategories.movie.includes(qIndex)) return 'movie';
+      return 'general';
+    });
+    
+    // Calculate how related each question would be to the potential matches
+    const questionScores = remainingQuestions.map(qIndex => {
+      let yesCount = 0;
+      let noCount = 0;
+      let maybeCount = 0;
+      
+      topCandidates.forEach(character => {
+        if (character.matches.includes(qIndex)) yesCount++;
+        else if (character.antiMatches.includes(qIndex)) noCount++;
+        else maybeCount++;
+      });
+      
+      const totalResponses = topCandidates.length;
+      
+      // Calculate how divisive this question would be (closer to 0.5 split is better)
+      // Using absolute difference from 0.5 gives us how far from ideal split
+      const splitScore = Math.abs((yesCount / totalResponses) - 0.5) + 
+                         Math.abs((noCount / totalResponses) - 0.5);
+      
+      // Start with base priority
+      let priorityBonus = 0;
+      
+      // Special question type prioritization
+      if (isIndianCharacter && questionCategories.indian.includes(qIndex)) {
+        priorityBonus -= 2.5;
+      }
+      
+      if (isCricketer && questionCategories.cricket.includes(qIndex)) {
+        priorityBonus -= 3;
+      }
+      
+      if (isTamilCinema && questionCategories.tamil.includes(qIndex)) {
+        priorityBonus -= 3;
+      }
+      
+      if (answers["21"] === "yes" && questionCategories.personal.includes(qIndex)) {
+        priorityBonus -= 3.5;
+      }
+      
+      if (answers["0"] === "no" && questionCategories.fictional.includes(qIndex)) {
+        priorityBonus -= 2.5;
+      }
+      
+      if (answers["0"] === "yes" && !askedQuestions.has(1) && qIndex === 1) {
+        priorityBonus -= 1.5;
+      }
+      
+      if (answers["2"] === "yes" && questionCategories.movie.includes(qIndex)) {
+        priorityBonus -= 2;
+      }
+      
+      if (answers["3"] === "yes" && qIndex === 35) {
+        priorityBonus -= 3;
+      }
+
+      if (answers["20"] === "yes" && qIndex === 36) {
+        priorityBonus -= 3;
+      }
+      
+      // Avoid asking questions from the same category repeatedly
+      let questionType = 'general';
+      if (questionCategories.cricket.includes(qIndex)) questionType = 'cricket';
+      else if (questionCategories.tamil.includes(qIndex)) questionType = 'tamil';
+      else if (questionCategories.indian.includes(qIndex)) questionType = 'indian';
+      else if (questionCategories.personal.includes(qIndex)) questionType = 'personal';
+      else if (questionCategories.fictional.includes(qIndex)) questionType = 'fictional';
+      else if (questionCategories.movie.includes(qIndex)) questionType = 'movie';
+      
+      // Add penalty for questions in the same category as recent questions
+      const categoryRepetitionCount = recentQuestionTypes.filter(type => type === questionType).length;
+      priorityBonus += categoryRepetitionCount * 1.5;
+
+      return { qIndex, score: splitScore + priorityBonus };
+    });
+    
+    questionScores.sort((a, b) => a.score - b.score);
+    
+    return questionScores.length > 0 ? questionScores[0].qIndex : -1;
+  };
+
+  const answerQuestion = (answer: string) => {
+    const newAnswers = { ...answers, [currentQuestion]: answer };
+    setAnswers(newAnswers);
+    
+    const newQuestionPath = [...questionPath, currentQuestion];
+    setQuestionPath(newQuestionPath);
+    
+    const newAskedQuestions = new Set(askedQuestions);
+    newAskedQuestions.add(currentQuestion);
+    setAskedQuestions(newAskedQuestions);
+    
+    // End the game after enough questions or when we're confident
+    if (newQuestionPath.length >= 15 || (newQuestionPath.length >= 8 && getConfidenceLevel(newAnswers) > 85)) {
+      setGameState("result");
+      return;
+    }
+    
+    const newUsedQuestions = new Set(usedQuestions);
+    let nextQuestion = getNextBestQuestion();
+    
+    if (nextQuestion === -1) {
+      setGameState("result");
+      return;
+    }
+    
+    if (!newUsedQuestions.has(nextQuestion)) {
+      newUsedQuestions.add(nextQuestion);
+    } else {
+      const unusedQuestions = allQuestions
+        .map((_, index) => index)
+        .filter(index => !newUsedQuestions.has(index) && !newAskedQuestions.has(index));
+      
+      if (unusedQuestions.length === 0) {
+        setGameState("result");
+        return;
+      }
+      
+      nextQuestion = unusedQuestions[0];
+      newUsedQuestions.add(nextQuestion);
+    }
+    
+    setCurrentQuestion(nextQuestion);
+    setUsedQuestions(newUsedQuestions);
+  };
+  
+  // Helper function to calculate confidence level in current best guess
+  const getConfidenceLevel = (currentAnswers) => {
+    const { characterGuess, accuracy } = guessCharacter(currentAnswers);
+    return parseInt(accuracy, 10);
+  };
+
+  const goToPreviousQuestion = () => {
+    if (questionPath.length <= 1) {
+      return;
+    }
+    
+    // Fix for the previous button
+    const newQuestionPath = questionPath.slice(0, -1);
+    const previousQuestionIndex = questionPath[questionPath.length - 2]; // Go back to the question before the current one
+    
+    setQuestionPath(newQuestionPath);
+    setCurrentQuestion(previousQuestionIndex);
+    
+    const newAnswers = { ...answers };
+    const lastAnsweredQuestion = questionPath[questionPath.length - 1];
+    delete newAnswers[lastAnsweredQuestion];
+    setAnswers(newAnswers);
+    
+    const newAskedQuestions = new Set(askedQuestions);
+    newAskedQuestions.delete(lastAnsweredQuestion);
+    setAskedQuestions(newAskedQuestions);
+    
+    toast({
+      title: "Going back",
+      description: "You can now change your previous answer.",
+      className: "glass-card",
+    });
+  };
+
+  const guessCharacter = (currentAnswers = answers) => {
+    const scoredProfiles = characterProfiles.map(character => ({
+      ...character,
+      score: 0
+    }));
+    
+    scoredProfiles.forEach(character => {
+      let score = 0;
+      let maxPossiblePoints = 0;
+      let matchingPoints = 0;
+      let antiMatchPoints = 0;
+      let negativePoints = 0;
+      
+      Object.entries(currentAnswers).forEach(([questionIndex, answer]) => {
+        const qIndex = Number(questionIndex);
+        maxPossiblePoints += 2;
         
-        // If the answer is "yes" and the question is in matches
-        if (answer === "yes" && profile.matches.includes(qIndex)) {
-          score += 10 * profile.categoryWeight;
-        }
-        // If the answer is "no" and the question is in antiMatches
-        else if (answer === "no" && profile.antiMatches.includes(qIndex)) {
-          score += 10 * profile.categoryWeight;
-        }
-        // If the answer is "no" and the question is in matches (penalty)
-        else if (answer === "no" && profile.matches.includes(qIndex)) {
-          score -= 5 * profile.categoryWeight;
-        }
-        // If the answer is "yes" and the question is in antiMatches (penalty)
-        else if (answer === "yes" && profile.antiMatches.includes(qIndex)) {
-          score -= 5 * profile.categoryWeight;
-        }
-        // For "maybe" answers
-        else if (answer === "maybe") {
-          if (profile.matches.includes(qIndex)) {
-            score += 3 * profile.categoryWeight;
-          }
-          if (profile.antiMatches.includes(qIndex)) {
-            score += 3 * profile.categoryWeight;
-          }
+        // Improved scoring system
+        if (answer === "yes" && character.matches.includes(qIndex)) {
+          score += 4;
+          matchingPoints += 4;
+        } else if (answer === "no" && character.antiMatches.includes(qIndex)) {
+          score += 3;
+          antiMatchPoints += 3;
+        } else if (answer === "yes" && character.antiMatches.includes(qIndex)) {
+          score -= 6;
+          negativePoints += 6;
+        } else if (answer === "no" && character.matches.includes(qIndex)) {
+          score -= 6;
+          negativePoints += 6;
+        } else if (answer === "maybe" && character.matches.includes(qIndex)) {
+          score += 1;
+          matchingPoints += 1;
+        } else if (answer === "maybe" && character.antiMatches.includes(qIndex)) {
+          score += 1;
+          antiMatchPoints += 1;
         }
       });
       
-      profile.score = score;
+      // Calculate more comprehensive coverage metrics
+      const matchCoverage = character.matches.length > 0 ? 
+        character.matches.filter(q => currentAnswers[q] === "yes").length / character.matches.length : 0;
+      
+      const antiMatchCoverage = character.antiMatches.length > 0 ? 
+        character.antiMatches.filter(q => currentAnswers[q] === "no").length / character.antiMatches.length : 0;
+      
+      // Question coverage with diminishing returns - more questions are better but with diminishing returns
+      const questionCoverage = Math.min(1, Object.keys(currentAnswers).length / 12);
+      
+      // Calculate negative match ratio - how many contradictions did we get?
+      const contradictionCount = character.matches.filter(q => currentAnswers[q] === "no").length +
+                               character.antiMatches.filter(q => currentAnswers[q] === "yes").length;
+      
+      const contradictionRatio = contradictionCount / Math.max(1, Object.keys(currentAnswers).length);
+      
+      // Final score calculation
+      const finalScore = score * character.categoryWeight * 
+        (1 + questionCoverage * 0.4) * 
+        (1 + matchCoverage * 0.8) * 
+        (1 + antiMatchCoverage * 0.6) * 
+        Math.pow(0.7, contradictionRatio * 5); // Exponential penalty for contradictions
+      
+      character.score = finalScore;
     });
+
+    const sortedProfiles = [...scoredProfiles].sort((a, b) => b.score - a.score);
+    const topCharacter = sortedProfiles[0];
+
+    let confidence = 50;
     
-    // Sort by score in descending order
-    updatedProfiles.sort((a, b) => b.score - a.score);
-    setCharacterProfiles(updatedProfiles);
+    if (topCharacter.score > 0) {
+      // Get score difference with runner-up
+      const runnerUpScore = sortedProfiles[1]?.score || 0;
+      const scoreDifference = Math.max(0, topCharacter.score - runnerUpScore);
+      const questionCount = Object.keys(currentAnswers).length;
+      
+      // More sophisticated confidence calculation based on multiple factors
+      confidence = Math.min(99, 50 + 
+                  (scoreDifference * 4) + 
+                  (questionCount * 2) + 
+                  (topCharacter.score > 15 ? 20 : topCharacter.score > 10 ? 15 : 0));
+      
+      // Extra confidence for well-known characters
+      if (["MS Dhoni", "Virat Kohli", "Sachin Tendulkar", "Rajinikanth", "Shah Rukh Khan"].includes(topCharacter.name)) {
+        confidence = Math.min(99, confidence + 5);
+      }
+    }
     
-    return updatedProfiles[0]; // Return the top character guess
+    // Minimum confidence level based on question count
+    if (Object.keys(currentAnswers).length >= 12) {
+      confidence = Math.max(confidence, 75);
+    } else if (Object.keys(currentAnswers).length >= 8) {
+      confidence = Math.max(confidence, 65);
+    }
+    
+    confidence = Math.min(99, Math.round(confidence));
+    
+    return { 
+      characterGuess: topCharacter.name, 
+      accuracy: `${confidence}%` 
+    };
   };
 
-  const handleNextQuestion = () => {
-    if (currentQuestion < allQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      const topCharacter = calculateScores();
-      setCorrectCharacter(topCharacter.name);
-      setGameState("result");
+  const saveNewCharacter = () => {
+    if (correctCharacter.trim() === "") {
       toast({
-        title: "Game finished!",
-        description: `I think your character is ${topCharacter.name}!`,
+        title: "Character name required",
+        description: "Please enter the name of the character you were thinking of.",
+        variant: "destructive",
+        className: "glass-card",
+      });
+      return;
+    }
+
+    const existingCharacterIndex = characterProfiles.findIndex(
+      char => char.name.toLowerCase() === correctCharacter.toLowerCase()
+    );
+    
+    const newCharacterProfile = {
+      name: correctCharacter,
+      matches: feedbackAnswers,
+      antiMatches: feedbackAntiAnswers,
+      score: 0,
+      categoryWeight: 1.3,
+    };
+
+    let updatedProfiles = [...characterProfiles];
+    
+    if (existingCharacterIndex !== -1) {
+      const existingChar = characterProfiles[existingCharacterIndex];
+      
+      const mergedMatches = [...new Set([...existingChar.matches, ...feedbackAnswers])];
+      const mergedAntiMatches = [...new Set([...existingChar.antiMatches, ...feedbackAntiAnswers])];
+      
+      // Remove any conflicts (same question in both matches and antiMatches)
+      const finalMatches = mergedMatches.filter(q => !mergedAntiMatches.includes(q));
+      const finalAntiMatches = mergedAntiMatches.filter(q => !mergedMatches.includes(q));
+      
+      updatedProfiles[existingCharacterIndex] = {
+        ...existingChar,
+        matches: finalMatches,
+        antiMatches: finalAntiMatches,
+        categoryWeight: 1.3,
+      };
+      
+      toast({
+        title: "Character updated!",
+        description: `I've updated my knowledge about "${correctCharacter}" and will do better next time!`,
+        className: "glass-card",
+      });
+    } else {
+      updatedProfiles.push(newCharacterProfile);
+      
+      toast({
+        title: "Thank you!",
+        description: `I've learned about "${correctCharacter}" and will do better next time!`,
+        className: "glass-card",
+      });
+    }
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem("characterProfiles", JSON.stringify(updatedProfiles));
+      setCharacterProfiles(updatedProfiles);
+      setCorrectCharacter("");
+      setFeedbackAnswers([]);
+      setFeedbackAntiAnswers([]);
+      setGameState("start");
+    } catch (error) {
+      toast({
+        title: "Storage error",
+        description: "There was a problem saving the character data. Your browser storage may be full.",
+        variant: "destructive",
+        className: "glass-card",
       });
     }
   };
 
-  const handleStartGame = () => {
-    setGameState("playing");
-    setCurrentQuestion(0);
-    setAnswers({});
-    toast({
-      title: "Game Started",
-      description: "Think of a character and I'll try to guess it!",
+  const processAnswersForFeedback = () => {
+    const yesAnswers: number[] = [];
+    const noAnswers: number[] = [];
+    
+    Object.entries(answers).forEach(([questionIndex, answer]) => {
+      const qIndex = Number(questionIndex);
+      if (answer === "yes") {
+        yesAnswers.push(qIndex);
+      } else if (answer === "no") {
+        noAnswers.push(qIndex);
+      }
     });
+    
+    setFeedbackAnswers(yesAnswers);
+    setFeedbackAntiAnswers(noAnswers);
   };
 
-  const handleCorrectGuess = () => {
-    toast({
-      title: "I got it right!",
-      description: "Thanks for playing!",
-    });
-    setGameState("start");
-  };
-
-  const handleWrongGuess = () => {
-    setGameState("feedback");
-    toast({
-      title: "I'll do better next time",
-      description: "Please provide feedback to help me learn!",
-    });
-  };
-
-  const handleFeedbackSubmit = (characterName: string) => {
-    // Here you would typically send the feedback to a backend
-    // For now, we'll just reset the game
-    toast({
-      title: "Thank you for your feedback!",
-      description: `I'll remember that ${characterName} next time.`,
-    });
-    setGameState("start");
-  };
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "game" | "contact")} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="game">Game</TabsTrigger>
-          <TabsTrigger value="contact">Contact</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="game" className="mt-6">
-          <div className="flex flex-col items-center justify-center">
-            <Card className="w-full max-w-md glass-card animate-fade-in">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl flex items-center justify-center gap-2">
-                  <Brain size={28} className="text-purple-500" />
-                  Guess Mate
-                </CardTitle>
-                <CardDescription>
-                  The character guessing game that learns from you
-                </CardDescription>
-              </CardHeader>
-              
-              <CardContent className="pb-6">
-                {gameState === "start" && (
-                  <div className="text-center space-y-6">
-                    <div className="p-6">
-                      <div className="text-xl font-semibold mb-2">Welcome to Guess Mate!</div>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        Think of any character (real or fictional) and I'll try to guess it
-                        by asking you up to 20 questions.
-                      </p>
-                    </div>
-                    <Button onClick={handleStartGame} className="glow-button px-8 py-4 rounded-lg">
-                      <Sparkles className="mr-2" size={20} />
-                      Start Game
-                    </Button>
-                  </div>
-                )}
-                
-                {gameState === "playing" && (
-                  <div className="space-y-6">
-                    <div className="mb-4 text-center">
-                      <div className="text-sm text-gray-500 mb-1">Question {currentQuestion + 1} of 20</div>
-                      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                        <div 
-                          className="bg-purple-600 h-2.5 rounded-full" 
-                          style={{ width: `${((currentQuestion + 1) / 20) * 100}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                    
-                    <div className="text-lg font-medium text-center mb-6 py-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                      {allQuestions[currentQuestion]}
-                    </div>
-                    
-                    <div className="grid grid-cols-3 gap-3">
-                      <Button 
-                        variant="outline" 
-                        className="hover-scale flex items-center justify-center py-6"
-                        onClick={() => {
-                          handleAnswer(currentQuestion, "yes");
-                          handleNextQuestion();
-                        }}
-                      >
-                        <ThumbsUp className="mr-2 text-green-500" size={20} />
-                        Yes
-                      </Button>
-                      
-                      <Button 
-                        variant="outline"
-                        className="hover-scale flex items-center justify-center py-6"
-                        onClick={() => {
-                          handleAnswer(currentQuestion, "no");
-                          handleNextQuestion();
-                        }}
-                      >
-                        <ThumbsDown className="mr-2 text-red-500" size={20} />
-                        No
-                      </Button>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="hover-scale flex items-center justify-center py-6"
-                        onClick={() => {
-                          handleAnswer(currentQuestion, "maybe");
-                          handleNextQuestion();
-                        }}
-                      >
-                        <HelpCircle className="mr-2 text-amber-500" size={20} />
-                        Maybe
-                      </Button>
-                    </div>
-                  </div>
-                )}
-                
-                {gameState === "result" && (
-                  <div className="text-center space-y-6">
-                    <div className="p-6">
-                      <div className="text-2xl font-bold mb-4 animate-pulse-gentle">My Guess Is</div>
-                      <div className="text-3xl text-purple-600 font-bold mb-6">{correctCharacter}</div>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        Is this correct?
-                      </p>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <Button 
-                        onClick={handleCorrectGuess}
-                        className="bg-green-500 hover:bg-green-600 text-white"
-                      >
-                        <Check className="mr-2" size={18} />
-                        Yes
-                      </Button>
-                      
-                      <Button 
-                        onClick={handleWrongGuess}
-                        className="bg-red-500 hover:bg-red-600 text-white"
-                      >
-                        <X className="mr-2" size={18} />
-                        No
-                      </Button>
-                    </div>
-                  </div>
-                )}
-                
-                {gameState === "feedback" && (
-                  <div className="space-y-6">
-                    <div className="text-center mb-4">
-                      <div className="text-xl font-semibold mb-2">Who were you thinking of?</div>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        Help me learn by telling me the correct character
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="character-name">Character Name</Label>
-                        <Input 
-                          id="character-name" 
-                          placeholder="Enter the character name"
-                          value={correctCharacter}
-                          onChange={(e) => setCorrectCharacter(e.target.value)}
-                        />
-                      </div>
-                      
-                      <Button 
-                        onClick={() => handleFeedbackSubmit(correctCharacter)}
-                        disabled={!correctCharacter.trim()}
-                        className="w-full"
-                      >
-                        Submit Feedback
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-              
-              {(gameState === "playing" || gameState === "result" || gameState === "feedback") && (
-                <CardFooter>
-                  <Button 
-                    variant="outline" 
-                    className="flex items-center"
-                    onClick={() => setGameState("start")}
-                  >
-                    <ChevronLeft className="mr-1" size={16} />
-                    Back to Start
-                  </Button>
-                </CardFooter>
-              )}
-            </Card>
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="contact" className="mt-6">
-          <Card className="glass-card animate-fade-in">
-            <CardHeader>
-              <CardTitle>Contact the Developer</CardTitle>
-              <CardDescription>
-                Feel free to reach out if you have any questions or feedback
+  const renderGameContent = () => {
+    switch (gameState) {
+      case "start":
+        return (
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Guess Mate</CardTitle>
+              <CardDescription className="text-lg mt-2">
+                Think of a person and answer the questions.
               </CardDescription>
             </CardHeader>
-            
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="text-purple-500" />
-                  <span>hamsadakshin5@gmail.com</span>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <Phone className="text-purple-500" />
-                  <span>8008031676</span>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <Linkedin className="text-purple-500" />
-                  <a 
-                    href="https://www.linkedin.com/in/dakshina-prasath/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-purple-500"
-                  >
-                    linkedin.com/in/dakshina-prasath
-                  </a>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <Instagram className="text-purple-500" />
-                  <a 
-                    href="https://www.instagram.com/dakshin__dp" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-purple-500"
-                  >
-                    @dakshin__dp
-                  </a>
-                </div>
+            <CardContent className="flex flex-col items-center justify-center space-y-4 py-6">
+              <div className="rounded-full bg-primary/10 p-6 hover-glow">
+                <Brain className="h-12 w-12 text-primary" />
+              </div>
+              <p className="text-center text-muted-foreground">
+                I'll ask you a series of questions and guess who you're thinking of.
+              </p>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full glow-button" onClick={startGame}>
+                <Sparkles className="h-4 w-4 mr-2" />
+                Start the Game
+              </Button>
+            </CardFooter>
+          </Card>
+        );
+      case "playing":
+        return (
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+            <CardHeader>
+              <CardTitle className="text-center bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Question {questionPath.length}</CardTitle>
+            </CardHeader>
+            <CardContent className="py-4">
+              <p className="text-center text-lg mb-6 font-medium">{allQuestions[currentQuestion]}</p>
+              <div className="grid grid-cols-3 gap-3">
+                <Button 
+                  variant="outline"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2 hover:border-green-500"
+                  onClick={() => answerQuestion("yes")}
+                >
+                  <ThumbsUp className="h-5 w-5 text-green-500" />
+                  <span>Yes</span>
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2 hover:border-red-500"
+                  onClick={() => answerQuestion("no")}
+                >
+                  <ThumbsDown className="h-5 w-5 text-red-500" />
+                  <span>No</span>
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex flex-col gap-2 hover-scale transition-all border-2 hover:border-amber-500"
+                  onClick={() => answerQuestion("maybe")}
+                >
+                  <HelpCircle className="h-5 w-5 text-amber-500" />
+                  <span>Maybe</span>
+                </Button>
               </div>
             </CardContent>
+            <CardFooter className="flex justify-between">
+              <div className="flex justify-between items-center w-full">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={goToPreviousQuestion}
+                  disabled={questionPath.length <= 1}
+                  className="flex items-center gap-1 hover-scale"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  <span>Previous</span>
+                </Button>
+                <div className="h-2 bg-secondary rounded-full w-32">
+                  <div 
+                    className="h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" 
+                    style={{ width: `${(questionPath.length / 15) * 100}%` }}
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {questionPath.length} / 15
+                </p>
+              </div>
+            </CardFooter>
           </Card>
+        );
+      case "result":
+        const { characterGuess, accuracy } = guessCharacter();
+        return (
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                I think you're thinking of...
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center justify-center space-y-6 py-6">
+              <div className="rounded-full bg-primary/10 p-6 hover-glow">
+                <Brain className="h-12 w-12 text-primary" />
+              </div>
+              <div className="text-center">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  {characterGuess}
+                </h3>
+                <p className="text-lg text-muted-foreground mt-2">Confidence: {accuracy}</p>
+              </div>
+              <div className="flex gap-4 mt-6">
+                <Button 
+                  variant="outline"
+                  className="flex items-center gap-2 border-green-400 border-2 hover:bg-green-500/10 hover-scale"
+                  onClick={() => {
+                    toast({
+                      title: "Great! I guessed it right! 🎉",
+                      description: "I'm getting better every day!",
+                      className: "glass-card",
+                    });
+                    setGameState("start");
+                  }}
+                >
+                  <Check className="h-4 w-4 text-green-500" />
+                  <span>Correct!</span>
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex items-center gap-2 border-red-400 border-2 hover:bg-red-500/10 hover-scale"
+                  onClick={() => {
+                    processAnswersForFeedback();
+                    setGameState("feedback");
+                  }}
+                >
+                  <X className="h-4 w-4 text-red-500" />
+                  <span>Wrong</span>
+                </Button>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                className="w-full glow-button"
+                onClick={startGame}
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                Play Again
+              </Button>
+            </CardFooter>
+          </Card>
+        );
+      case "feedback":
+        return (
+          <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                Help Me Learn
+              </CardTitle>
+              <CardDescription>
+                Tell me who you were thinking of so I can make better guesses next time
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="character-name">Who were you thinking of?</Label>
+                <Input 
+                  id="character-name"
+                  placeholder="Enter character name" 
+                  value={correctCharacter}
+                  onChange={(e) => setCorrectCharacter(e.target.value)}
+                  className="border-2"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                I'll remember your answers to improve my guessing ability.
+              </p>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-3">
+              <Button 
+                className="w-full glow-button" 
+                onClick={saveNewCharacter}
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                Save & Continue
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full hover-scale"
+                onClick={() => setGameState("start")}
+              >
+                Skip
+              </Button>
+            </CardFooter>
+          </Card>
+        );
+      default:
+        return null;
+    }
+  };
+  
+  const renderContactContent = () => {
+    return (
+      <Card className="w-full max-w-md mx-auto glass-card animate-fade-in">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+            Contact Information
+          </CardTitle>
+          <CardDescription>
+            Get in touch with the developer
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col space-y-6 py-4">
+          <div className="flex items-center space-x-4 p-3 rounded-lg bg-primary/5 hover-scale">
+            <div className="rounded-full bg-primary/10 p-2">
+              <Mail className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">Email</p>
+              <a href="mailto:hamsadakshin5@gmail.com" className="text-sm text-indigo-600 dark:text-indigo-400">
+                hamsadakshin5@gmail.com
+              </a>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-4 p-3 rounded-lg bg-primary/5 hover-scale">
+            <div className="rounded-full bg-primary/10 p-2">
+              <Phone className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">Phone</p>
+              <a href="tel:8008031676" className="text-sm text-indigo-600 dark:text-indigo-400">
+                8008031676
+              </a>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-4 p-3 rounded-lg bg-primary/5 hover-scale">
+            <div className="rounded-full bg-primary/10 p-2">
+              <Linkedin className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">LinkedIn</p>
+              <a 
+                href="https://www.linkedin.com/in/dakshina-prasath/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-indigo-600 dark:text-indigo-400"
+              >
+                dakshina-prasath
+              </a>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-4 p-3 rounded-lg bg-primary/5 hover-scale">
+            <div className="rounded-full bg-primary/10 p-2">
+              <Instagram className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">Instagram</p>
+              <a 
+                href="https://www.instagram.com/dakshin__dp?igsh=MXMweWpjazV2bGplcg%3D%3D&utm_source=qr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-indigo-600 dark:text-indigo-400"
+              >
+                dakshin__dp
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  useEffect(() => {
+    const savedProfiles = localStorage.getItem("characterProfiles");
+    if (savedProfiles) {
+      try {
+        setCharacterProfiles(JSON.parse(savedProfiles));
+      } catch (error) {
+        console.error("Error loading saved character profiles:", error);
+      }
+    }
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-950 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md mb-8">
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
+          Guess Mate
+        </h1>
+        <p className="text-center text-muted-foreground mt-2">
+          The intelligent character guessing game
+        </p>
+      </div>
+      
+      <Tabs defaultValue="game" className="w-full max-w-md" onValueChange={(value) => setActiveTab(value as "game" | "contact")}>
+        <TabsList className="grid w-full grid-cols-2 mb-4">
+          <TabsTrigger value="game" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-600 data-[state=active]:text-white">Game</TabsTrigger>
+          <TabsTrigger value="contact" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-600 data-[state=active]:text-white">Contact</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="game" className="mt-0">
+          {renderGameContent()}
+        </TabsContent>
+        
+        <TabsContent value="contact" className="mt-0">
+          {renderContactContent()}
         </TabsContent>
       </Tabs>
     </div>
@@ -848,3 +1398,4 @@ const Index = () => {
 };
 
 export default Index;
+
