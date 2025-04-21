@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
-  const [gameState, setGameState<"start" | "playing" | "result" | "feedback" | "contact">("start");
+  const [gameState, setGameState] = useState<"start" | "playing" | "result" | "feedback" | "contact">("start");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [correctCharacter, setCorrectCharacter] = useState<string>("");
@@ -520,4 +520,14 @@ const Index = () => {
   ]);
 
   const handleAnswer = (questionIndex: number, answer: string) => {
-    setAnswers({ ...answers, [questionIndex]:
+    setAnswers({ ...answers, [questionIndex]: answer });
+  };
+
+  return (
+    <div>
+      {/* Your JSX goes here */}
+    </div>
+  );
+};
+
+export default Index;
