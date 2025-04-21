@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -523,9 +524,325 @@ const Index = () => {
     setAnswers({ ...answers, [questionIndex]: answer });
   };
 
+  // Calculate scores based on answers
+  const calculateScores = () => {
+    // Clone the character profiles to update scores
+    const updatedProfiles = [...characterProfiles];
+    
+    // Calculate scores for each character based on answers
+    updatedProfiles.forEach((profile) => {
+      let score = 0;
+      Object.entries(answers).forEach(([questionIndex, answer]) => {
+        const qIndex = parseInt(questionIndex);
+        
+        // If the answer is "yes" and the question is in matches
+        if (answer === "yes" && profile.matches.includes(qIndex)) {
+          score += 10 * profile.categoryWeight;
+        }
+        // If the answer is "no" and the question is in antiMatches
+        else if (answer === "no" && profile.antiMatches.includes(qIndex)) {
+          score += 10 * profile.categoryWeight;
+        }
+        // If the answer is "no" and the question is in matches (penalty)
+        else if (answer === "no" && profile.matches.includes(qIndex)) {
+          score -= 5 * profile.categoryWeight;
+        }
+        // If the answer is "yes" and the question is in antiMatches (penalty)
+        else if (answer === "yes" && profile.antiMatches.includes(qIndex)) {
+          score -= 5 * profile.categoryWeight;
+        }
+        // For "maybe" answers
+        else if (answer === "maybe") {
+          if (profile.matches.includes(qIndex)) {
+            score += 3 * profile.categoryWeight;
+          }
+          if (profile.antiMatches.includes(qIndex)) {
+            score += 3 * profile.categoryWeight;
+          }
+        }
+      });
+      
+      profile.score = score;
+    });
+    
+    // Sort by score in descending order
+    updatedProfiles.sort((a, b) => b.score - a.score);
+    setCharacterProfiles(updatedProfiles);
+    
+    return updatedProfiles[0]; // Return the top character guess
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < allQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      const topCharacter = calculateScores();
+      setCorrectCharacter(topCharacter.name);
+      setGameState("result");
+      toast({
+        title: "Game finished!",
+        description: `I think your character is ${topCharacter.name}!`,
+      });
+    }
+  };
+
+  const handleStartGame = () => {
+    setGameState("playing");
+    setCurrentQuestion(0);
+    setAnswers({});
+    toast({
+      title: "Game Started",
+      description: "Think of a character and I'll try to guess it!",
+    });
+  };
+
+  const handleCorrectGuess = () => {
+    toast({
+      title: "I got it right!",
+      description: "Thanks for playing!",
+    });
+    setGameState("start");
+  };
+
+  const handleWrongGuess = () => {
+    setGameState("feedback");
+    toast({
+      title: "I'll do better next time",
+      description: "Please provide feedback to help me learn!",
+    });
+  };
+
+  const handleFeedbackSubmit = (characterName: string) => {
+    // Here you would typically send the feedback to a backend
+    // For now, we'll just reset the game
+    toast({
+      title: "Thank you for your feedback!",
+      description: `I'll remember that ${characterName} next time.`,
+    });
+    setGameState("start");
+  };
+
   return (
-    <div>
-      {/* Your JSX goes here */}
+    <div className="container mx-auto px-4 py-8">
+      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "game" | "contact")} className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="game">Game</TabsTrigger>
+          <TabsTrigger value="contact">Contact</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="game" className="mt-6">
+          <div className="flex flex-col items-center justify-center">
+            <Card className="w-full max-w-md glass-card animate-fade-in">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl flex items-center justify-center gap-2">
+                  <Brain size={28} className="text-purple-500" />
+                  Guess Mate
+                </CardTitle>
+                <CardDescription>
+                  The character guessing game that learns from you
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="pb-6">
+                {gameState === "start" && (
+                  <div className="text-center space-y-6">
+                    <div className="p-6">
+                      <div className="text-xl font-semibold mb-2">Welcome to Guess Mate!</div>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Think of any character (real or fictional) and I'll try to guess it
+                        by asking you up to 20 questions.
+                      </p>
+                    </div>
+                    <Button onClick={handleStartGame} className="glow-button px-8 py-4 rounded-lg">
+                      <Sparkles className="mr-2" size={20} />
+                      Start Game
+                    </Button>
+                  </div>
+                )}
+                
+                {gameState === "playing" && (
+                  <div className="space-y-6">
+                    <div className="mb-4 text-center">
+                      <div className="text-sm text-gray-500 mb-1">Question {currentQuestion + 1} of 20</div>
+                      <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div 
+                          className="bg-purple-600 h-2.5 rounded-full" 
+                          style={{ width: `${((currentQuestion + 1) / 20) * 100}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-lg font-medium text-center mb-6 py-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                      {allQuestions[currentQuestion]}
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-3">
+                      <Button 
+                        variant="outline" 
+                        className="hover-scale flex items-center justify-center py-6"
+                        onClick={() => {
+                          handleAnswer(currentQuestion, "yes");
+                          handleNextQuestion();
+                        }}
+                      >
+                        <ThumbsUp className="mr-2 text-green-500" size={20} />
+                        Yes
+                      </Button>
+                      
+                      <Button 
+                        variant="outline"
+                        className="hover-scale flex items-center justify-center py-6"
+                        onClick={() => {
+                          handleAnswer(currentQuestion, "no");
+                          handleNextQuestion();
+                        }}
+                      >
+                        <ThumbsDown className="mr-2 text-red-500" size={20} />
+                        No
+                      </Button>
+                      
+                      <Button 
+                        variant="outline" 
+                        className="hover-scale flex items-center justify-center py-6"
+                        onClick={() => {
+                          handleAnswer(currentQuestion, "maybe");
+                          handleNextQuestion();
+                        }}
+                      >
+                        <HelpCircle className="mr-2 text-amber-500" size={20} />
+                        Maybe
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                {gameState === "result" && (
+                  <div className="text-center space-y-6">
+                    <div className="p-6">
+                      <div className="text-2xl font-bold mb-4 animate-pulse-gentle">My Guess Is</div>
+                      <div className="text-3xl text-purple-600 font-bold mb-6">{correctCharacter}</div>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Is this correct?
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <Button 
+                        onClick={handleCorrectGuess}
+                        className="bg-green-500 hover:bg-green-600 text-white"
+                      >
+                        <Check className="mr-2" size={18} />
+                        Yes
+                      </Button>
+                      
+                      <Button 
+                        onClick={handleWrongGuess}
+                        className="bg-red-500 hover:bg-red-600 text-white"
+                      >
+                        <X className="mr-2" size={18} />
+                        No
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                {gameState === "feedback" && (
+                  <div className="space-y-6">
+                    <div className="text-center mb-4">
+                      <div className="text-xl font-semibold mb-2">Who were you thinking of?</div>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Help me learn by telling me the correct character
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="character-name">Character Name</Label>
+                        <Input 
+                          id="character-name" 
+                          placeholder="Enter the character name"
+                          value={correctCharacter}
+                          onChange={(e) => setCorrectCharacter(e.target.value)}
+                        />
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleFeedbackSubmit(correctCharacter)}
+                        disabled={!correctCharacter.trim()}
+                        className="w-full"
+                      >
+                        Submit Feedback
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+              
+              {(gameState === "playing" || gameState === "result" || gameState === "feedback") && (
+                <CardFooter>
+                  <Button 
+                    variant="outline" 
+                    className="flex items-center"
+                    onClick={() => setGameState("start")}
+                  >
+                    <ChevronLeft className="mr-1" size={16} />
+                    Back to Start
+                  </Button>
+                </CardFooter>
+              )}
+            </Card>
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="contact" className="mt-6">
+          <Card className="glass-card animate-fade-in">
+            <CardHeader>
+              <CardTitle>Contact the Developer</CardTitle>
+              <CardDescription>
+                Feel free to reach out if you have any questions or feedback
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Mail className="text-purple-500" />
+                  <span>hamsadakshin5@gmail.com</span>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <Phone className="text-purple-500" />
+                  <span>8008031676</span>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <Linkedin className="text-purple-500" />
+                  <a 
+                    href="https://www.linkedin.com/in/dakshina-prasath/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-500"
+                  >
+                    linkedin.com/in/dakshina-prasath
+                  </a>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <Instagram className="text-purple-500" />
+                  <a 
+                    href="https://www.instagram.com/dakshin__dp" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-purple-500"
+                  >
+                    @dakshin__dp
+                  </a>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
